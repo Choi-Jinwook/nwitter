@@ -6,10 +6,14 @@ function App() {
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
 
+  const handleUserObj = (user) => {
+    setUserObj(user);
+  };
+
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
-        setUserObj(user);
+        handleUserObj(user);
       }
       setInit(true);
     });
@@ -18,7 +22,11 @@ function App() {
   return (
     <>
       {init ? (
-        <AppRouter isLoggedIn={Boolean(userObj)} userObj={userObj} />
+        <AppRouter
+          handleUserObj={handleUserObj}
+          isLoggedIn={Boolean(userObj)}
+          userObj={userObj}
+        />
       ) : (
         "Initializing"
       )}

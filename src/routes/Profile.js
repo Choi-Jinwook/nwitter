@@ -1,12 +1,15 @@
-import { authService } from "fbase";
+import { getAuth, signOut } from "firebase/auth";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Profile = () => {
+const Profile = ({ handleUserObj }) => {
+  const auth = getAuth();
   const navigate = useNavigate();
   const onLogOutClick = () => {
-    authService.signOut();
-    navigate("/");
+    signOut(auth).then(() => {
+      handleUserObj(null);
+      navigate("/");
+    });
   };
   return (
     <>

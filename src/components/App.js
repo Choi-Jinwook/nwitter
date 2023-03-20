@@ -6,14 +6,24 @@ function App() {
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
 
-  const handleUserObj = (user) => {
-    setUserObj(user);
+  const refreshUser = () => {
+    const user = authService.currentUser;
+    setUserObj({
+      displayName: user.displayName,
+      uid: user.uid,
+      updateProfile: () =>
+        user.updateProfile(user, { displayName: user.displayName }),
+    });
   };
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
-        handleUserObj(user);
+        setUserObj({
+          displayName: user.displayName,
+          uid: user.uid,
+          updateProfile: (args) => user.updateProfile(args),
+        });
       }
       setInit(true);
     });
@@ -23,7 +33,7 @@ function App() {
     <>
       {init ? (
         <AppRouter
-          handleUserObj={handleUserObj}
+          refreshUser={refreshUser}
           isLoggedIn={Boolean(userObj)}
           userObj={userObj}
         />

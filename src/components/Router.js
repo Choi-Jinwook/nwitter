@@ -7,7 +7,7 @@ import Navigation from "./Navigation";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
-    <Router>
+    <Router basename="/">
       {isLoggedIn && <Navigation userObj={userObj} refreshUser={refreshUser} />}
       <div
         style={{

@@ -1,7 +1,7 @@
 import { uuidv4 } from "@firebase/util";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { dbService, storageService } from "fbase";
+import { authService, dbService, storageService } from "fbase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import React, { useState } from "react";
@@ -58,6 +58,7 @@ const NweetFactory = ({ userObj }) => {
       text: nweet,
       createdAt: serverTimestamp(),
       creatorId: userObj.uid,
+      creatorName: authService.currentUser.displayName,
       attachmentUrl,
     };
     await addDoc(collection(dbService, "nweets"), nweetObj);

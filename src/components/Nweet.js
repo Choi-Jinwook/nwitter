@@ -6,6 +6,7 @@ import { deleteObject, ref } from "firebase/storage";
 import React, { useState } from "react";
 
 const Nweet = ({ nweetObj, isOwner }) => {
+  console.log(nweetObj);
   const [editing, setEditing] = useState(false);
   const [newNweet, setNewNweet] = useState(nweetObj.text);
 
@@ -58,6 +59,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
         </>
       ) : (
         <>
+          <h4>작성자: {nweetObj.creatorName}</h4>
           <h4>{nweetObj.text}</h4>
           {nweetObj.attachmentUrl && (
             <img alt="attachment" src={nweetObj.attachmentUrl} />

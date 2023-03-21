@@ -10,6 +10,7 @@ const Navigation = ({ userObj, refreshUser }) => {
     userObj.displayName = name;
     refreshUser();
   }
+
   return (
     <>
       <nav>
@@ -34,9 +35,7 @@ const Navigation = ({ userObj, refreshUser }) => {
             >
               <FontAwesomeIcon icon={faUser} color={"#04AAFF"} size="2x" />
               <span style={{ marginTop: 10 }}>
-                {userObj.displayName
-                  ? `${userObj.displayName}의 Profile`
-                  : "Profile"}
+                {userObj.displayName && `${userObj.displayName}의 Profile`}
               </span>
             </Link>
           </li>

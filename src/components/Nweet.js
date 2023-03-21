@@ -6,7 +6,6 @@ import { deleteObject, ref } from "firebase/storage";
 import React, { useState } from "react";
 
 const Nweet = ({ nweetObj, isOwner }) => {
-  console.log(nweetObj);
   const [editing, setEditing] = useState(false);
   const [newNweet, setNewNweet] = useState(nweetObj.text);
 

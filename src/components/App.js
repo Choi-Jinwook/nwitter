@@ -10,6 +10,7 @@ function App() {
     const user = authService.currentUser;
     if (user) {
       setUserObj({
+        email: user.email,
         displayName: user.displayName,
         uid: user.uid,
         updateProfile: () =>
@@ -24,6 +25,7 @@ function App() {
     authService.onAuthStateChanged((user) => {
       if (user) {
         setUserObj({
+          email: user.email,
           displayName: user.displayName,
           uid: user.uid,
           updateProfile: (args) => user.updateProfile(args),

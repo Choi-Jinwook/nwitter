@@ -42,6 +42,8 @@ const Profile = ({ refreshUser, userObj }) => {
       });
       refreshUser();
       setEditProfile(false);
+    } else {
+      setEditProfile(false);
     }
   };
 
@@ -59,19 +61,37 @@ const Profile = ({ refreshUser, userObj }) => {
   return (
     <>
       {editProfile ? (
-        <form onSubmit={onSubmit}>
-          <input
-            type="text"
-            placeholder="Display name"
-            value={newDisplayName}
-            onChange={onChange}
-          />
-          <input type="submit" value="Update Profile" />
-        </form>
+        <div className="container">
+          <form onSubmit={onSubmit}>
+            <input
+              type="text"
+              autoFocus
+              placeholder="Display name"
+              value={newDisplayName}
+              onChange={onChange}
+              className="formInput"
+            />
+            <input
+              type="submit"
+              value="Update Profile"
+              className="formBtn"
+              style={{
+                marginTop: 10,
+              }}
+            />
+          </form>
+        </div>
       ) : (
-        <button onClick={handleDisplayName}>Edit Profile</button>
+        <button
+          onClick={handleDisplayName}
+          className="formBtn cancelBtn logOut"
+        >
+          Edit Profile
+        </button>
       )}
-      <button onClick={onLogOutClick}>Log Out</button>
+      <button className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
+        Log Out
+      </button>
     </>
   );
 };

@@ -8,12 +8,16 @@ function App() {
 
   const refreshUser = () => {
     const user = authService.currentUser;
-    setUserObj({
-      displayName: user.displayName,
-      uid: user.uid,
-      updateProfile: () =>
-        user.updateProfile(user, { displayName: user.displayName }),
-    });
+    if (user) {
+      setUserObj({
+        displayName: user.displayName,
+        uid: user.uid,
+        updateProfile: () =>
+          user.updateProfile(user, { displayName: user.displayName }),
+      });
+    } else {
+      setUserObj(null);
+    }
   };
 
   useEffect(() => {

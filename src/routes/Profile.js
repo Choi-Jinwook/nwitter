@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Profile = ({ refreshUser, userObj }) => {
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
+  const [editProfile, setEditProfile] = useState(false);
   const auth = getAuth();
   const navigate = useNavigate();
 
@@ -40,6 +41,7 @@ const Profile = ({ refreshUser, userObj }) => {
         displayName: newDisplayName,
       });
       refreshUser();
+      setEditProfile(false);
     }
   };
 
@@ -50,17 +52,25 @@ const Profile = ({ refreshUser, userObj }) => {
     setNewDisplayName(value);
   };
 
+  const handleDisplayName = () => {
+    setEditProfile(true);
+  };
+
   return (
     <>
-      <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          placeholder="Display name"
-          value={newDisplayName}
-          onChange={onChange}
-        />
-        <input type="submit" value="Update Profile" />
-      </form>
+      {editProfile ? (
+        <form onSubmit={onSubmit}>
+          <input
+            type="text"
+            placeholder="Display name"
+            value={newDisplayName}
+            onChange={onChange}
+          />
+          <input type="submit" value="Update Profile" />
+        </form>
+      ) : (
+        <button onClick={handleDisplayName}>Edit Profile</button>
+      )}
       <button onClick={onLogOutClick}>Log Out</button>
     </>
   );

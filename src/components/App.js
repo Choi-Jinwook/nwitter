@@ -6,16 +6,20 @@ function App() {
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
 
+  const handleUserObj = (user) => {
+    setUserObj({
+      email: user.email,
+      displayName: user.displayName,
+      uid: user.uid,
+      updateProfile: () =>
+        user.updateProfile(user, { displayName: user.displayName }),
+    });
+  };
+
   const refreshUser = () => {
     const user = authService.currentUser;
     if (user) {
-      setUserObj({
-        email: user.email,
-        displayName: user.displayName,
-        uid: user.uid,
-        updateProfile: () =>
-          user.updateProfile(user, { displayName: user.displayName }),
-      });
+      handleUserObj(user);
     } else {
       setUserObj(null);
     }
@@ -24,12 +28,7 @@ function App() {
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
-        setUserObj({
-          email: user.email,
-          displayName: user.displayName,
-          uid: user.uid,
-          updateProfile: (args) => user.updateProfile(args),
-        });
+        handleUserObj(user);
       }
       setInit(true);
     });
